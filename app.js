@@ -1,12 +1,12 @@
 /**
- * FitTracker - Aplicativo de Treino (Treinos A & B)
- * Dados importados da Planilha Google Sheets com GIFs de execução
+ * FitTracker - Aplicativo de Treino (Treinos A & B Equilibrados)
+ * Atualizado: Treinos A e B balanceados (8 exercícios cada), Bíceps e Tríceps em ambos,
+ * foco em máquinas para proteção dos ombros.
  */
 
-// Base CDN de GIFs esportivos abertos
 const GIF_CDN = 'https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/';
 
-// Dados padrão extraídos da planilha com GIFs correspondentes
+// Dados padrão estruturados e balanceados
 const DEFAULT_WORKOUT_DATA = {
   workoutA: [
     {
@@ -17,7 +17,7 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 57.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/0585-my33uHU.gif`,
-      notes: "",
+      notes: "Quadríceps",
       completedSets: [false, false, false]
     },
     {
@@ -28,7 +28,7 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 63.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/0597-CHpahtl.gif`,
-      notes: "",
+      notes: "Glúteos / Quadril",
       completedSets: [false, false, false]
     },
     {
@@ -39,7 +39,7 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 43.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/0586-17lJ1kr.gif`,
-      notes: "",
+      notes: "Posterior de coxa",
       completedSets: [false, false, false]
     },
     {
@@ -50,40 +50,40 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 18.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/1299-jHAnWmT.gif`,
-      notes: "Exercício de peito",
+      notes: "Peito na máquina (seguro para o ombro)",
       completedSets: [false, false, false]
     },
     {
       id: "a-5",
-      name: "Elevação lateral",
+      name: "Supino vertical na máquina",
       sets: 3,
-      reps: "12",
-      weight: 0.0,
+      reps: "15",
+      weight: 36.0,
       rest: 50,
-      gifUrl: `${GIF_CDN}videos/0334-DsgkuIt.gif`,
-      notes: "",
+      gifUrl: `${GIF_CDN}videos/0577-T0yTjgW.gif`,
+      notes: "Peito reto na máquina",
       completedSets: [false, false, false]
     },
     {
       id: "a-6",
-      name: "Desenvolvimento com halteres neutro",
+      name: "Bíceps na máquina",
       sets: 3,
       reps: "12",
-      weight: 3.0,
+      weight: 29.0,
       rest: 50,
-      gifUrl: `${GIF_CDN}videos/0405-znQUdHY.gif`,
-      notes: "",
+      gifUrl: `${GIF_CDN}videos/0592-b6hQYMb.gif`,
+      notes: "Bíceps Scott / Máquina",
       completedSets: [false, false, false]
     },
     {
       id: "a-7",
-      name: "Abdominal canivete",
+      name: "Tríceps banco",
       sets: 3,
       reps: "15",
-      weight: 0.0,
+      weight: 50.0,
       rest: 50,
-      gifUrl: `${GIF_CDN}videos/0507-mbkgB44.gif`,
-      notes: "",
+      gifUrl: `${GIF_CDN}videos/0129-RrLske5.gif`,
+      notes: "Tríceps / Apoio firme",
       completedSets: [false, false, false]
     },
     {
@@ -94,7 +94,7 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 8.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/0285-BU15nH4.gif`,
-      notes: "Adicionado do Treino B",
+      notes: "Bíceps com halteres pegada neutra/supinada",
       completedSets: [false, false, false]
     }
   ],
@@ -107,103 +107,95 @@ const DEFAULT_WORKOUT_DATA = {
       weight: 16.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/3142-dzz6BiV.gif`,
-      notes: "",
+      notes: "Pernas / Glúteos",
       completedSets: [false, false, false]
     },
     {
       id: "b-2",
-      name: "Remada articulada cabo neutra",
-      sets: 3,
-      reps: "12",
-      weight: 36.0,
-      rest: 50,
-      gifUrl: `${GIF_CDN}videos/0861-fUBheHs.gif`,
-      notes: "",
-      completedSets: [false, false, false]
-    },
-    {
-      id: "b-3",
-      name: "Bíceps na máquina",
-      sets: 3,
-      reps: "12",
-      weight: 29.0,
-      rest: 50,
-      gifUrl: `${GIF_CDN}videos/0592-b6hQYMb.gif`,
-      notes: "",
-      completedSets: [false, false, false]
-    },
-    {
-      id: "b-4",
-      name: "Tríceps banco",
-      sets: 3,
-      reps: "15",
-      weight: 50.0,
-      rest: 50,
-      gifUrl: `${GIF_CDN}videos/0129-RrLske5.gif`,
-      notes: "",
-      completedSets: [false, false, false]
-    },
-    {
-      id: "b-5",
-      name: "Caminhada na esteira",
-      sets: 1,
-      reps: "15-20 min",
-      weight: 0.0,
-      rest: 0,
-      gifUrl: `${GIF_CDN}videos/3666-rjiM4L3.gif`,
-      notes: "Cardio",
-      completedSets: [false]
-    },
-    {
-      id: "b-6",
-      name: "Supino inclinado articulado",
-      sets: 3,
-      reps: "15",
-      weight: 18.0,
-      rest: 50,
-      gifUrl: `${GIF_CDN}videos/1299-jHAnWmT.gif`,
-      notes: "Adicionado do Treino A",
-      completedSets: [false, false, false]
-    },
-    {
-      id: "b-7",
-      name: "Leg Pés",
+      name: "Leg Pés (Leg Press)",
       sets: 3,
       reps: "15",
       weight: 110.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/1463-2Qh2J1e.gif`,
-      notes: "",
+      notes: "Pernas completas",
       completedSets: [false, false, false]
     },
     {
-      id: "b-8",
+      id: "b-3",
       name: "Panturrilha Máquina",
       sets: 3,
       reps: "15",
       weight: 80.0,
       rest: 50,
       gifUrl: `${GIF_CDN}videos/0605-ykUOVze.gif`,
-      notes: "",
+      notes: "Panturrilhas",
       completedSets: [false, false, false]
     },
     {
-      id: "b-9",
-      name: "Supino vertical",
+      id: "b-4",
+      name: "Remada articulada cabo neutra",
       sets: 3,
-      reps: "15",
+      reps: "12",
       weight: 36.0,
       rest: 50,
-      gifUrl: `${GIF_CDN}videos/0577-T0yTjgW.gif`,
-      notes: "",
+      gifUrl: `${GIF_CDN}videos/0861-fUBheHs.gif`,
+      notes: "Costas - Pegada neutra amiga do ombro",
       completedSets: [false, false, false]
+    },
+    {
+      id: "b-5",
+      name: "Supino inclinado articulado",
+      sets: 3,
+      reps: "15",
+      weight: 18.0,
+      rest: 50,
+      gifUrl: `${GIF_CDN}videos/1299-jHAnWmT.gif`,
+      notes: "Peito na máquina",
+      completedSets: [false, false, false]
+    },
+    {
+      id: "b-6",
+      name: "Bíceps na máquina",
+      sets: 3,
+      reps: "12",
+      weight: 29.0,
+      rest: 50,
+      gifUrl: `${GIF_CDN}videos/0592-b6hQYMb.gif`,
+      notes: "Bíceps Scott / Máquina",
+      completedSets: [false, false, false]
+    },
+    {
+      id: "b-7",
+      name: "Tríceps banco",
+      sets: 3,
+      reps: "15",
+      weight: 50.0,
+      rest: 50,
+      gifUrl: `${GIF_CDN}videos/0129-RrLske5.gif`,
+      notes: "Tríceps / Apoio firme",
+      completedSets: [false, false, false]
+    },
+    {
+      id: "b-8",
+      name: "Caminhada na esteira",
+      sets: 1,
+      reps: "15-20 min",
+      weight: 0.0,
+      rest: 0,
+      gifUrl: `${GIF_CDN}videos/3666-rjiM4L3.gif`,
+      notes: "Cardio final",
+      completedSets: [false]
     }
   ]
 };
 
+// Versão dos dados para atualização automática
+const DATA_VERSION_KEY = 'fitTrackerData_v3';
+
 // Estado da Aplicação
 const AppState = {
-  currentWorkout: 'A', // 'A' ou 'B'
+  currentWorkout: 'A',
   data: null,
   settings: {
     showGifs: true,
@@ -245,9 +237,9 @@ function playBeepSound() {
     };
 
     const now = audioCtx.currentTime;
-    playTone(880, now, 0.15); // La5
-    playTone(1174.66, now + 0.18, 0.25); // Re6
-    playTone(1760, now + 0.45, 0.4); // La6
+    playTone(880, now, 0.15);
+    playTone(1174.66, now + 0.18, 0.25);
+    playTone(1760, now + 0.45, 0.4);
   } catch (e) {
     console.warn("Áudio não pôde ser reproduzido:", e);
   }
@@ -262,7 +254,7 @@ function triggerVibration() {
 
 // Inicialização e LocalStorage
 function loadData() {
-  const saved = localStorage.getItem('fitTrackerData_v2');
+  const saved = localStorage.getItem(DATA_VERSION_KEY);
   if (saved) {
     try {
       AppState.data = JSON.parse(saved);
@@ -292,7 +284,7 @@ function loadData() {
 }
 
 function saveData() {
-  localStorage.setItem('fitTrackerData_v2', JSON.stringify(AppState.data));
+  localStorage.setItem(DATA_VERSION_KEY, JSON.stringify(AppState.data));
   localStorage.setItem('fitTrackerSettings', JSON.stringify(AppState.settings));
 }
 
@@ -416,7 +408,7 @@ function render() {
       `;
     }
 
-    // HTML do GIF se estiver ativado
+    // HTML do GIF
     const showGif = AppState.settings.showGifs && ex.gifUrl;
     const gifThumbnailHtml = showGif ? `
       <div class="exercise-thumbnail-box" title="Toque para ampliar a demonstração" data-gif-btn="${ex.id}">
@@ -464,10 +456,8 @@ function render() {
       </div>
     `;
 
-    // Evento do Botão Editar
     card.querySelector('.btn-edit').addEventListener('click', () => openEditModal(ex));
 
-    // Evento de Zoom no GIF
     if (showGif) {
       const gifBox = card.querySelector(`[data-gif-btn="${ex.id}"]`);
       if (gifBox) {
@@ -475,7 +465,6 @@ function render() {
       }
     }
 
-    // Ajustes Rápidos de Peso (+ / -)
     card.querySelector('.btn-minus').addEventListener('click', (e) => {
       e.stopPropagation();
       adjustWeight(ex.id, -1);
@@ -485,7 +474,6 @@ function render() {
       adjustWeight(ex.id, 1);
     });
 
-    // Clique nas Séries
     const setBubbles = card.querySelectorAll('.set-bubble');
     setBubbles.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -498,7 +486,7 @@ function render() {
   });
 }
 
-// Lógica de Modificação de Exercícios
+// Modificação de Exercícios
 function adjustWeight(exerciseId, delta) {
   const currentList = AppState.currentWorkout === 'A' ? AppState.data.workoutA : AppState.data.workoutB;
   const ex = currentList.find(item => item.id === exerciseId);
@@ -528,7 +516,7 @@ function toggleSet(exerciseId, setIndex) {
   }
 }
 
-// Lógica do Cronômetro de Descanso
+// Cronômetro de Descanso
 function startRestTimer(seconds, exerciseName = '') {
   clearInterval(AppState.timer.intervalId);
 
@@ -585,7 +573,7 @@ function stopTimer() {
   elements.timerBar.classList.remove('show');
 }
 
-// Modal de Zoom do GIF
+// Modal Zoom
 function openGifModal(exercise) {
   elements.gifViewerTitle.textContent = exercise.name;
   elements.gifViewerImg.src = exercise.gifUrl;
@@ -598,7 +586,7 @@ function closeGifModal() {
   elements.gifViewerImg.src = '';
 }
 
-// Modais de Criação e Edição
+// Modal de Criação e Edição
 function openAddModal() {
   elements.modalTitle.textContent = `Novo Exercício (Treino ${AppState.currentWorkout})`;
   elements.formId.value = '';
@@ -694,7 +682,6 @@ function updatePresetButtons(activeSeconds) {
   });
 }
 
-// Configurações e Backup
 function resetTodayWorkout() {
   if (confirm(`Deseja reiniciar todas as séries do Treino ${AppState.currentWorkout}?`)) {
     const currentList = AppState.currentWorkout === 'A' ? AppState.data.workoutA : AppState.data.workoutB;
@@ -707,7 +694,7 @@ function resetTodayWorkout() {
 }
 
 function resetToDefault() {
-  if (confirm('Atenção: Isso restaurará todos os exercícios, pesos e GIFs originais. Deseja continuar?')) {
+  if (confirm('Atenção: Isso restaurará a divisão padrão com 8 exercícios no Treino A e 8 no Treino B. Deseja continuar?')) {
     AppState.data = JSON.parse(JSON.stringify(DEFAULT_WORKOUT_DATA));
     saveData();
     elements.modalSettings.classList.remove('active');
@@ -749,7 +736,6 @@ function importData(e) {
   reader.readAsText(file);
 }
 
-// Helpers
 function escapeHtml(text) {
   if (!text) return '';
   return text
@@ -766,7 +752,6 @@ function updateDateHeader() {
   elements.workoutDate.textContent = today;
 }
 
-// Event Listeners Globais
 function initEventListeners() {
   elements.tabA.addEventListener('click', () => {
     AppState.currentWorkout = 'A';
@@ -786,22 +771,18 @@ function initEventListeners() {
   });
   elements.btnCloseSettings.addEventListener('click', () => elements.modalSettings.classList.remove('active'));
 
-  // Timer Bar
   elements.btnTimerPause.addEventListener('click', toggleTimerPause);
   elements.btnTimerPlus.addEventListener('click', () => addTimerTime(10));
   elements.btnTimerStop.addEventListener('click', stopTimer);
 
-  // Modal Exercício
   elements.btnAddExercise.addEventListener('click', openAddModal);
   elements.btnCloseModal.addEventListener('click', closeExerciseModal);
   elements.btnCancelModal.addEventListener('click', closeExerciseModal);
   elements.formExercise.addEventListener('submit', handleSaveExercise);
   elements.btnDeleteExercise.addEventListener('click', handleDeleteExercise);
 
-  // Modal GIF Zoom
   elements.btnCloseGif.addEventListener('click', closeGifModal);
 
-  // Preset de descanso
   document.querySelectorAll('.btn-preset').forEach(btn => {
     btn.addEventListener('click', () => {
       elements.formRest.value = btn.dataset.sec;
@@ -809,7 +790,6 @@ function initEventListeners() {
     });
   });
 
-  // Configurações
   elements.settingShowGifs.addEventListener('change', (e) => {
     AppState.settings.showGifs = e.target.checked;
     saveData();
@@ -827,7 +807,6 @@ function initEventListeners() {
   elements.btnExportData.addEventListener('click', exportData);
   elements.fileImportData.addEventListener('change', importData);
 
-  // Fechar modais ao clicar no backdrop
   [elements.modalExercise, elements.modalSettings, elements.modalGifViewer].forEach(modal => {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -837,7 +816,6 @@ function initEventListeners() {
   });
 }
 
-// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
   loadData();
   updateDateHeader();
