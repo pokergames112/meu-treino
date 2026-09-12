@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="App de treino para academia - Treino A & B com cronômetro de descanso e controle de cargas">
+  <title>FitTracker - Meu Treino</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <div>
+            <h1 class="brand-title">FitTracker</h1>
+            <span class="brand-subtitle" id="workout-date">Hoje</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="btn-reset-day" class="icon-btn" title="Reiniciar Séries de Hoje">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+          <button id="btn-open-settings" class="icon-btn" title="Configurações & Backup">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Workout Selector Tabs -->
+      <nav class="workout-tabs" role="tablist">
+        <button class="tab-btn active" data-workout="A" id="tab-workout-a">
+          <span class="tab-badge">A</span>
+          <div class="tab-info">
+            <span class="tab-name">Treino A</span>
+            <span class="tab-count" id="count-workout-a">0 exercícios</span>
+          </div>
+        </button>
+        <button class="tab-btn" data-workout="B" id="tab-workout-b">
+          <span class="tab-badge">B</span>
+          <div class="tab-info">
+            <span class="tab-name">Treino B</span>
+            <span class="tab-count" id="count-workout-b">0 exercícios</span>
+          </div>
+        </button>
+      </nav>
+
+      <!-- Workout Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-labels">
+          <span class="progress-text">Progresso do Treino</span>
+          <span class="progress-percent" id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content: Exercise List -->
+    <main class="exercises-container" id="exercises-list">
+      <!-- Dinamicamente preenchido via JavaScript -->
+    </main>
+
+    <!-- Floating Action Button: Add Exercise -->
+    <div class="fab-wrapper">
+      <button id="btn-add-exercise" class="btn-fab" title="Adicionar Novo Exercício">
+        <i class="fa-solid fa-plus"></i>
+        <span>Adicionar Exercício</span>
+      </button>
+    </div>
+
+    <!-- Active Rest Floating Timer Widget -->
+    <div class="rest-timer-bar" id="rest-timer-bar">
+      <div class="timer-progress-ring">
+        <svg viewBox="0 0 36 36" class="circular-chart">
+          <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          <path id="timer-circle-fill" class="circle-fill" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        </svg>
+        <span class="timer-seconds-text" id="timer-display">50s</span>
+      </div>
+
+      <div class="timer-details">
+        <span class="timer-label">Descanso em andamento</span>
+        <span class="timer-exercise-name" id="timer-exercise-name">Próxima série</span>
+      </div>
+
+      <div class="timer-controls">
+        <button id="btn-timer-plus" class="timer-btn" title="Adicionar 10s">+10s</button>
+        <button id="btn-timer-pause" class="timer-btn primary" title="Pausar / Continuar">
+          <i class="fa-solid fa-pause" id="timer-pause-icon"></i>
+        </button>
+        <button id="btn-timer-stop" class="timer-btn danger" title="Pular Descanso">
+          <i class="fa-solid fa-forward-step"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Adicionar / Editar Exercício -->
+  <div class="modal-backdrop" id="exercise-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-title">Editar Exercício</h2>
+        <button class="icon-btn close-btn" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="exercise-form" class="modal-body">
+        <input type="hidden" id="form-exercise-id">
+        
+        <div class="form-group">
+          <label for="form-name">Nome do Aparelho / Exercício</label>
+          <input type="text" id="form-name" required placeholder="Ex: Cadeira extensora">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-workout">Treino</label>
+            <select id="form-workout">
+              <option value="A">Treino A</option>
+              <option value="B">Treino B</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="form-weight">Carga (kg)</label>
+            <input type="number" id="form-weight" step="0.5" min="0" placeholder="0">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-sets">Séries</label>
+            <input type="number" id="form-sets" min="1" max="10" value="3" required>
+          </div>
+          <div class="form-group">
+            <label for="form-reps">Repetições</label>
+            <input type="text" id="form-reps" placeholder="Ex: 15 ou 12-15">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="form-rest">Tempo de Descanso (segundos)</label>
+          <div class="rest-presets">
+            <button type="button" class="btn-preset" data-sec="30">30s</button>
+            <button type="button" class="btn-preset active" data-sec="50">50s</button>
+            <button type="button" class="btn-preset" data-sec="60">60s</button>
+            <button type="button" class="btn-preset" data-sec="90">90s</button>
+          </div>
+          <input type="number" id="form-rest" min="5" step="5" value="50" required style="margin-top: 8px;">
+        </div>
+
+        <div class="form-group">
+          <label for="form-notes">Anotações / Instruções</label>
+          <input type="text" id="form-notes" placeholder="Ex: Banco inclinado 45°, pegada neutra...">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btn-delete-exercise" style="display: none;">
+            <i class="fa-solid fa-trash"></i> Excluir
+          </button>
+          <div class="modal-actions-right">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Configurações & Backup -->
+  <div class="modal-backdrop" id="settings-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Configurações & Dados</h2>
+        <button class="icon-btn close-btn" id="btn-close-settings"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body settings-list">
+        <div class="settings-item">
+          <div class="settings-info">
+            <strong>Som do Cronômetro</strong>
+            <span>Tocar aviso sonoro quando o descanso acabar</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="setting-sound" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-item">
+          <div class="settings-info">
+            <strong>Vibração no Celular</strong>
+            <span>Vibrar quando o descanso terminar</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="setting-vibrate" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-divider"></div>
+
+        <div class="settings-actions">
+          <button id="btn-reset-default" class="btn btn-outline-warning">
+            <i class="fa-solid fa-arrows-rotate"></i> Restaurar Planilha Original
+          </button>
+          <button id="btn-export-data" class="btn btn-outline">
+            <i class="fa-solid fa-file-export"></i> Fazer Backup (Exportar JSON)
+          </button>
+          <label class="btn btn-outline" style="text-align: center; cursor: pointer;">
+            <i class="fa-solid fa-file-import"></i> Restaurar Backup (Importar JSON)
+            <input type="file" id="file-import-data" accept=".json" style="display: none;">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration skipped:', err));
+      });
+    }
+  </script>
+</body>
+</html>

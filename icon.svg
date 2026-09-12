@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b0f17"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="110" fill="url(#bgGrad)"/>
+  <rect width="504" height="504" x="4" y="4" rx="106" fill="none" stroke="#3b82f6" stroke-width="6" opacity="0.3"/>
+
+  <!-- Glowing Dumbbell Graphic -->
+  <g filter="url(#glow)" transform="translate(0, 0)">
+    <!-- Dumbbell Bar -->
+    <rect x="180" y="240" width="152" height="32" rx="16" fill="#f8fafc"/>
+    
+    <!-- Left Inner Weight Plate -->
+    <rect x="144" y="160" width="36" height="192" rx="14" fill="url(#blueGrad)"/>
+    <!-- Left Outer Weight Plate -->
+    <rect x="110" y="196" width="34" height="120" rx="12" fill="url(#greenGrad)"/>
+    <!-- Left Bar Cap -->
+    <rect x="92" y="244" width="18" height="24" rx="8" fill="#94a3b8"/>
+
+    <!-- Right Inner Weight Plate -->
+    <rect x="332" y="160" width="36" height="192" rx="14" fill="url(#blueGrad)"/>
+    <!-- Right Outer Weight Plate -->
+    <rect x="368" y="196" width="34" height="120" rx="12" fill="url(#greenGrad)"/>
+    <!-- Right Bar Cap -->
+    <rect x="402" y="244" width="18" height="24" rx="8" fill="#94a3b8"/>
+  </g>
+</svg>
