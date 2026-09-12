@@ -1,0 +1,114 @@
+{
+  "Cadeira extensora": {
+    "matchedName": "lever leg extension",
+    "target": "quads",
+    "bodyPart": "upper legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0585-my33uHU.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0585-my33uHU.jpg"
+  },
+  "Cadeira abdutora": {
+    "matchedName": "lever seated hip abduction",
+    "target": "abductors",
+    "bodyPart": "upper legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0597-CHpahtl.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0597-CHpahtl.jpg"
+  },
+  "Mesa flexora": {
+    "matchedName": "lever lying leg curl",
+    "target": "hamstrings",
+    "bodyPart": "upper legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0586-17lJ1kr.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0586-17lJ1kr.jpg"
+  },
+  "Supino inclinado articulado": {
+    "matchedName": "lever incline chest press",
+    "target": "pectorals",
+    "bodyPart": "chest",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/1299-jHAnWmT.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/1299-jHAnWmT.jpg"
+  },
+  "Elevação lateral": {
+    "matchedName": "dumbbell lateral raise",
+    "target": "delts",
+    "bodyPart": "shoulders",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0334-DsgkuIt.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0334-DsgkuIt.jpg"
+  },
+  "Desenvolvimento com halteres neutro": {
+    "matchedName": "band shoulder press",
+    "target": "delts",
+    "bodyPart": "shoulders",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0997-peAeMR3.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0997-peAeMR3.jpg"
+  },
+  "Abdominal canivete": {
+    "matchedName": "jackknife sit-up",
+    "target": "abs",
+    "bodyPart": "waist",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0507-mbkgB44.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0507-mbkgB44.jpg"
+  },
+  "Bíceps com haltere alternado": {
+    "matchedName": "cable lying bicep curl",
+    "target": "biceps",
+    "bodyPart": "upper arms",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/1634-otqIxU4.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/1634-otqIxU4.jpg"
+  },
+  "Agachamento sumô": {
+    "matchedName": "smith sumo squat",
+    "target": "glutes",
+    "bodyPart": "upper legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/3142-dzz6BiV.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/3142-dzz6BiV.jpg"
+  },
+  "Remada articulada cabo neutra": {
+    "matchedName": "cable seated row",
+    "target": "upper back",
+    "bodyPart": "back",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0861-fUBheHs.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0861-fUBheHs.jpg"
+  },
+  "Bíceps na máquina": {
+    "matchedName": "lever preacher curl",
+    "target": "biceps",
+    "bodyPart": "upper arms",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0592-b6hQYMb.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0592-b6hQYMb.jpg"
+  },
+  "Tríceps banco": {
+    "matchedName": "bench dip (knees bent)",
+    "target": "triceps",
+    "bodyPart": "upper arms",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0129-RrLske5.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0129-RrLske5.jpg"
+  },
+  "Caminhada na esteira": {
+    "matchedName": "walking on incline treadmill",
+    "target": "cardiovascular system",
+    "bodyPart": "cardio",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/3666-rjiM4L3.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/3666-rjiM4L3.jpg"
+  },
+  "Leg Pés": {
+    "matchedName": "sled 45° leg press (side pov)",
+    "target": "glutes",
+    "bodyPart": "upper legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/1463-2Qh2J1e.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/1463-2Qh2J1e.jpg"
+  },
+  "Panturrilha Máquina": {
+    "matchedName": "lever standing calf raise",
+    "target": "calves",
+    "bodyPart": "lower legs",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0605-ykUOVze.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0605-ykUOVze.jpg"
+  },
+  "Supino vertical": {
+    "matchedName": "lever chest press",
+    "target": "pectorals",
+    "bodyPart": "chest",
+    "gif": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/videos/0577-T0yTjgW.gif",
+    "image": "https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/images/0577-T0yTjgW.jpg"
+  }
+}

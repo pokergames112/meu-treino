@@ -1,9 +1,12 @@
 /**
  * FitTracker - Aplicativo de Treino (Treinos A & B)
- * Dados importados diretamente da Planilha Google Sheets
+ * Dados importados da Planilha Google Sheets com GIFs de execução
  */
 
-// Dados padrão extraídos da planilha
+// Base CDN de GIFs esportivos abertos
+const GIF_CDN = 'https://cdn.jsdelivr.net/gh/Devillmy/exercises-dataset-zh@main/';
+
+// Dados padrão extraídos da planilha com GIFs correspondentes
 const DEFAULT_WORKOUT_DATA = {
   workoutA: [
     {
@@ -13,6 +16,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 57.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0585-my33uHU.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -23,6 +27,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 63.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0597-CHpahtl.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -33,6 +38,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 43.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0586-17lJ1kr.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -43,6 +49,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 18.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/1299-jHAnWmT.gif`,
       notes: "Exercício de peito",
       completedSets: [false, false, false]
     },
@@ -53,6 +60,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "12",
       weight: 0.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0334-DsgkuIt.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -63,6 +71,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "12",
       weight: 3.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0405-znQUdHY.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -73,6 +82,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 0.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0507-mbkgB44.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -83,6 +93,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "12",
       weight: 8.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0285-BU15nH4.gif`,
       notes: "Adicionado do Treino B",
       completedSets: [false, false, false]
     }
@@ -95,6 +106,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 16.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/3142-dzz6BiV.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -105,6 +117,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "12",
       weight: 36.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0861-fUBheHs.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -115,6 +128,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "12",
       weight: 29.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0592-b6hQYMb.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -125,6 +139,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 50.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0129-RrLske5.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -135,6 +150,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15-20 min",
       weight: 0.0,
       rest: 0,
+      gifUrl: `${GIF_CDN}videos/3666-rjiM4L3.gif`,
       notes: "Cardio",
       completedSets: [false]
     },
@@ -145,6 +161,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 18.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/1299-jHAnWmT.gif`,
       notes: "Adicionado do Treino A",
       completedSets: [false, false, false]
     },
@@ -155,6 +172,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 110.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/1463-2Qh2J1e.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -165,6 +183,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 80.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0605-ykUOVze.gif`,
       notes: "",
       completedSets: [false, false, false]
     },
@@ -175,6 +194,7 @@ const DEFAULT_WORKOUT_DATA = {
       reps: "15",
       weight: 36.0,
       rest: 50,
+      gifUrl: `${GIF_CDN}videos/0577-T0yTjgW.gif`,
       notes: "",
       completedSets: [false, false, false]
     }
@@ -186,6 +206,7 @@ const AppState = {
   currentWorkout: 'A', // 'A' ou 'B'
   data: null,
   settings: {
+    showGifs: true,
     sound: true,
     vibrate: true
   },
@@ -210,19 +231,15 @@ function playBeepSound() {
       audioCtx.resume();
     }
     
-    // Toca sequência dupla de bipes esportivos
     const playTone = (freq, startTime, duration) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, startTime);
-      
       gain.gain.setValueAtTime(0.3, startTime);
       gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-      
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      
       osc.start(startTime);
       osc.stop(startTime + duration);
     };
@@ -245,11 +262,10 @@ function triggerVibration() {
 
 // Inicialização e LocalStorage
 function loadData() {
-  const saved = localStorage.getItem('fitTrackerData');
+  const saved = localStorage.getItem('fitTrackerData_v2');
   if (saved) {
     try {
       AppState.data = JSON.parse(saved);
-      // Garantir integridade dos arrays de séries
       ['workoutA', 'workoutB'].forEach(wKey => {
         if (!AppState.data[wKey]) AppState.data[wKey] = [];
         AppState.data[wKey].forEach(ex => {
@@ -270,13 +286,13 @@ function loadData() {
   const savedSettings = localStorage.getItem('fitTrackerSettings');
   if (savedSettings) {
     try {
-      AppState.settings = JSON.parse(savedSettings);
+      AppState.settings = { ...AppState.settings, ...JSON.parse(savedSettings) };
     } catch (e) {}
   }
 }
 
 function saveData() {
-  localStorage.setItem('fitTrackerData', JSON.stringify(AppState.data));
+  localStorage.setItem('fitTrackerData_v2', JSON.stringify(AppState.data));
   localStorage.setItem('fitTrackerSettings', JSON.stringify(AppState.settings));
 }
 
@@ -318,11 +334,20 @@ const elements = {
   formSets: document.getElementById('form-sets'),
   formReps: document.getElementById('form-reps'),
   formRest: document.getElementById('form-rest'),
+  formGif: document.getElementById('form-gif'),
   formNotes: document.getElementById('form-notes'),
+
+  // Modal GIF Zoom
+  modalGifViewer: document.getElementById('gif-viewer-modal'),
+  gifViewerTitle: document.getElementById('gif-viewer-title'),
+  gifViewerImg: document.getElementById('gif-viewer-img'),
+  gifViewerDesc: document.getElementById('gif-viewer-desc'),
+  btnCloseGif: document.getElementById('btn-close-gif'),
 
   // Modal Configurações
   modalSettings: document.getElementById('settings-modal'),
   btnCloseSettings: document.getElementById('btn-close-settings'),
+  settingShowGifs: document.getElementById('setting-show-gifs'),
   settingSound: document.getElementById('setting-sound'),
   settingVibrate: document.getElementById('setting-vibrate'),
   btnResetDefault: document.getElementById('btn-reset-default'),
@@ -391,8 +416,18 @@ function render() {
       `;
     }
 
+    // HTML do GIF se estiver ativado
+    const showGif = AppState.settings.showGifs && ex.gifUrl;
+    const gifThumbnailHtml = showGif ? `
+      <div class="exercise-thumbnail-box" title="Toque para ampliar a demonstração" data-gif-btn="${ex.id}">
+        <img class="exercise-thumb-img" src="${ex.gifUrl}" alt="${escapeHtml(ex.name)}" loading="lazy">
+        <span class="gif-badge">GIF</span>
+      </div>
+    ` : '';
+
     card.innerHTML = `
-      <div class="card-header">
+      <div class="card-top-content">
+        ${gifThumbnailHtml}
         <div class="exercise-title-group">
           <span class="exercise-index">Exercício ${index + 1}</span>
           <h3 class="exercise-name">${escapeHtml(ex.name)}</h3>
@@ -429,9 +464,16 @@ function render() {
       </div>
     `;
 
-    // Eventos do Card
-    // Botão Editar
+    // Evento do Botão Editar
     card.querySelector('.btn-edit').addEventListener('click', () => openEditModal(ex));
+
+    // Evento de Zoom no GIF
+    if (showGif) {
+      const gifBox = card.querySelector(`[data-gif-btn="${ex.id}"]`);
+      if (gifBox) {
+        gifBox.addEventListener('click', () => openGifModal(ex));
+      }
+    }
 
     // Ajustes Rápidos de Peso (+ / -)
     card.querySelector('.btn-minus').addEventListener('click', (e) => {
@@ -481,7 +523,6 @@ function toggleSet(exerciseId, setIndex) {
   saveData();
   render();
 
-  // Se a série acabou de ser marcada como concluída e tem descanso configurado, dispara o timer
   if (willBeDone && ex.rest > 0) {
     startRestTimer(ex.rest, `${ex.name} (Série ${setIndex + 1})`);
   }
@@ -519,15 +560,11 @@ function startRestTimer(seconds, exerciseName = '') {
 
 function updateTimerUI() {
   const { remainingSeconds, totalSeconds, isRunning, exerciseName } = AppState.timer;
-  
   elements.timerDisplay.textContent = `${remainingSeconds}s`;
   elements.timerExerciseName.textContent = exerciseName || 'Próxima série';
 
-  // Atualizar anel circular
   const percent = totalSeconds > 0 ? (remainingSeconds / totalSeconds) * 100 : 0;
   elements.timerCircleFill.setAttribute('stroke-dasharray', `${percent}, 100`);
-
-  // Ícone de pause/play
   elements.timerPauseIcon.className = isRunning ? 'fa-solid fa-pause' : 'fa-solid fa-play';
 }
 
@@ -548,6 +585,19 @@ function stopTimer() {
   elements.timerBar.classList.remove('show');
 }
 
+// Modal de Zoom do GIF
+function openGifModal(exercise) {
+  elements.gifViewerTitle.textContent = exercise.name;
+  elements.gifViewerImg.src = exercise.gifUrl;
+  elements.gifViewerDesc.textContent = exercise.notes || `${exercise.sets} séries de ${exercise.reps} repetições`;
+  elements.modalGifViewer.classList.add('active');
+}
+
+function closeGifModal() {
+  elements.modalGifViewer.classList.remove('active');
+  elements.gifViewerImg.src = '';
+}
+
 // Modais de Criação e Edição
 function openAddModal() {
   elements.modalTitle.textContent = `Novo Exercício (Treino ${AppState.currentWorkout})`;
@@ -558,6 +608,7 @@ function openAddModal() {
   elements.formSets.value = '3';
   elements.formReps.value = '15';
   elements.formRest.value = '50';
+  elements.formGif.value = '';
   elements.formNotes.value = '';
   elements.btnDeleteExercise.style.display = 'none';
 
@@ -574,6 +625,7 @@ function openEditModal(exercise) {
   elements.formSets.value = exercise.sets;
   elements.formReps.value = exercise.reps || '';
   elements.formRest.value = exercise.rest;
+  elements.formGif.value = exercise.gifUrl || '';
   elements.formNotes.value = exercise.notes || '';
   elements.btnDeleteExercise.style.display = 'inline-flex';
 
@@ -588,7 +640,7 @@ function closeExerciseModal() {
 function handleSaveExercise(e) {
   e.preventDefault();
   const id = elements.formId.value;
-  const targetWorkout = elements.formWorkout.value; // 'A' ou 'B'
+  const targetWorkout = elements.formWorkout.value;
   const setsCount = parseInt(elements.formSets.value, 10) || 3;
 
   const exerciseData = {
@@ -598,6 +650,7 @@ function handleSaveExercise(e) {
     reps: elements.formReps.value.trim(),
     weight: parseFloat(elements.formWeight.value) || 0,
     rest: parseInt(elements.formRest.value, 10) || 0,
+    gifUrl: elements.formGif.value.trim(),
     notes: elements.formNotes.value.trim(),
     completedSets: new Array(setsCount).fill(false)
   };
@@ -605,13 +658,11 @@ function handleSaveExercise(e) {
   const targetListKey = targetWorkout === 'A' ? 'workoutA' : 'workoutB';
 
   if (id) {
-    // Edição: se mudou de treino (A -> B ou B -> A), remove do antigo e joga no novo
     ['workoutA', 'workoutB'].forEach(k => {
       AppState.data[k] = AppState.data[k].filter(item => item.id !== id);
     });
     AppState.data[targetListKey].push(exerciseData);
   } else {
-    // Criação: adiciona no final
     AppState.data[targetListKey].push(exerciseData);
   }
 
@@ -656,7 +707,7 @@ function resetTodayWorkout() {
 }
 
 function resetToDefault() {
-  if (confirm('Atenção: Isso restaurará todos os exercícios e pesos para a planilha original do Google Sheets. Deseja continuar?')) {
+  if (confirm('Atenção: Isso restaurará todos os exercícios, pesos e GIFs originais. Deseja continuar?')) {
     AppState.data = JSON.parse(JSON.stringify(DEFAULT_WORKOUT_DATA));
     saveData();
     elements.modalSettings.classList.remove('active');
@@ -717,7 +768,6 @@ function updateDateHeader() {
 
 // Event Listeners Globais
 function initEventListeners() {
-  // Troca de Treino A/B
   elements.tabA.addEventListener('click', () => {
     AppState.currentWorkout = 'A';
     render();
@@ -727,9 +777,13 @@ function initEventListeners() {
     render();
   });
 
-  // Botões do Header
   elements.btnResetDay.addEventListener('click', resetTodayWorkout);
-  elements.btnOpenSettings.addEventListener('click', () => elements.modalSettings.classList.add('active'));
+  elements.btnOpenSettings.addEventListener('click', () => {
+    elements.settingShowGifs.checked = AppState.settings.showGifs;
+    elements.settingSound.checked = AppState.settings.sound;
+    elements.settingVibrate.checked = AppState.settings.vibrate;
+    elements.modalSettings.classList.add('active');
+  });
   elements.btnCloseSettings.addEventListener('click', () => elements.modalSettings.classList.remove('active'));
 
   // Timer Bar
@@ -744,6 +798,9 @@ function initEventListeners() {
   elements.formExercise.addEventListener('submit', handleSaveExercise);
   elements.btnDeleteExercise.addEventListener('click', handleDeleteExercise);
 
+  // Modal GIF Zoom
+  elements.btnCloseGif.addEventListener('click', closeGifModal);
+
   // Preset de descanso
   document.querySelectorAll('.btn-preset').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -753,6 +810,11 @@ function initEventListeners() {
   });
 
   // Configurações
+  elements.settingShowGifs.addEventListener('change', (e) => {
+    AppState.settings.showGifs = e.target.checked;
+    saveData();
+    render();
+  });
   elements.settingSound.addEventListener('change', (e) => {
     AppState.settings.sound = e.target.checked;
     saveData();
@@ -766,7 +828,7 @@ function initEventListeners() {
   elements.fileImportData.addEventListener('change', importData);
 
   // Fechar modais ao clicar no backdrop
-  [elements.modalExercise, elements.modalSettings].forEach(modal => {
+  [elements.modalExercise, elements.modalSettings, elements.modalGifViewer].forEach(modal => {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.classList.remove('active');
